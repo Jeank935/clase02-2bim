@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship, declarative_base
 from sqlalchemy import create_engine
 
-from config import cadena_base_datos
+from configuracion import cadena_base_datos
 
 engine = create_engine(cadena_base_datos)
 
