@@ -25,3 +25,17 @@ for archivo_csv in actores_csv:
             )
             session.add(actor)
     session.commit()
+with open("../data/actores.csv", "r", encoding="utf-8") as archivo:
+    reader = csv.DictReader(archivo)
+    for linea in reader:
+            pais_obj = session.query(Pais).filter_by(nombre=linea["pais"]).first()
+            serie_obj = session.query(Serie).filter_by(titulo=linea["serie"]).first()
+            actor = Actor(
+                id=int(linea["id"]),
+                nombre=linea["nombre"],
+                edad=int(linea["edad"]),
+                pais=pais_obj,
+                serie=serie_obj
+            )
+            session.add(actor)
+session.commit()
