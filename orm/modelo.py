@@ -1,3 +1,4 @@
+from sqlalchemy.orm import instrumentation
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship, declarative_base
 from sqlalchemy import create_engine
@@ -52,7 +53,21 @@ class Serie(Base):
     premios    = relationship('Premio',     back_populates='serie')
 
     def __repr__(self):
-        return f"Serie: {self.nombre}"
+        return f"Serie: {self.titulo}"
+
+    def promedio_edad_actores(self):
+
+        edades= [e.edad for e in self.actores]
+        if len(edades) > 0:
+            suma = sum(edades)
+            promedio = suma/len(edades)
+            return promedio
+        else:
+            return 0
+            
+    def premios_serie(self):
+        premios= [p.id for p in self.premios]
+        return len(premios)
 
 class Actor(Base):
     __tablename__ = 'actor'
